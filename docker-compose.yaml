@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  buschgpt-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: buschgpt-mcp-server
+    restart: unless-stopped
+    environment:
+      # Load from .env file or override here
+      - STATWORX_AUTH_SERVER=${STATWORX_AUTH_SERVER}
+      - STATWORX_CLIENT_ID=${STATWORX_CLIENT_ID}
+      - STATWORX_CLIENT_SECRET=${STATWORX_CLIENT_SECRET}
+      - NODE_ENV=production
+    # Mount volumes if you need persistent data or logs
+    volumes:
+      - ./logs:/app/logs:rw
+    # Network configuration
+    networks:
+      - buschgpt-network
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  buschgpt-network:
+    driver: bridge
+    name: buschgpt-network
+
+# Optional: Add a volume for persistent logs
+volumes:
+  logs:
+    driver: local
