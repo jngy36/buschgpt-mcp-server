@@ -63,16 +63,22 @@ class BuschGPTMCPServer {
             description: 
               // 🔧 TOOL DESCRIPTION - CUSTOMIZE THIS SECTION 🔧
               // This is where you can modify the tool description that will be visible to MCP clients
-              "Query the BuschGPT service for technical information about Busch products. " +
-              "BuschGPT has access to technical manuals and specification sheets, and can help with " +
-              "product codes, weights, specifications, and technical documentation. " +
-              "Ideal for finding similar products, technical details, and product information.",
+              "Query BuschGPT, a specialized AI assistant with comprehensive knowledge of Pfeiffer Vacuum and Busch Vacuum products and technologies. " +
+              "BuschGPT has access to: " +
+              "• PIM System data containing product hierarchies, technical specifications, and data attributes for all Pfeiffer Vacuum and Busch Vacuum products " +
+              "• Complete technical manuals for Pfeiffer and Busch product lines " +
+              "• Know-How Books with expert knowledge and best practices " +
+              "• Comprehensive vacuum technology documentation and theory " +
+              "" +
+              "Use this tool for: product specifications, technical comparisons, troubleshooting guidance, product recommendations, " +
+              "installation procedures, maintenance instructions, vacuum technology principles, system design advice, " +
+              "compatibility checks, performance data, and expert technical support for vacuum systems.",
             inputSchema: {
               type: "object",
               properties: {
                 query: {
                   type: "string",
-                  description: "The question or query to send to BuschGPT",
+                  description: "Technical question or query about Pfeiffer/Busch vacuum products, specifications, manuals, or vacuum technology in general",
                 },
               },
               required: ["query"],
